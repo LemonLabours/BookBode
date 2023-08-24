@@ -9,3 +9,8 @@ const hLightGray = Color(0xFFb1b5c1);
 const hDarkGray = Color(0xFF5e6069);
 
 
+const babyAndDarkBlueGradient = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [primary, secondary], // Dark to Light Blue
+);
