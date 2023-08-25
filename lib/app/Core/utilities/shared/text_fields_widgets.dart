@@ -14,9 +14,10 @@ class TextFieldWidget extends StatelessWidget {
       this.maxLines,
       this.textController,
       this.onSubmitted,
-      required this.lebel,
+      this.lebel,
       this.height,
-      this.width});
+      this.width,
+      this.borderRadius = 8});
 
   final bool? obscureText;
   final String? hintText;
@@ -26,9 +27,10 @@ class TextFieldWidget extends StatelessWidget {
   final int? maxLines;
   final TextEditingController? textController;
   final Function(String)? onSubmitted;
-  final String lebel;
+  final String? lebel;
   final double? height;
   final double? width;
+  final double? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class TextFieldWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          lebel,
+          lebel ?? "",
           style: const TextStyle(
               color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 16),
         ),
@@ -60,7 +62,7 @@ class TextFieldWidget extends StatelessWidget {
               prefixIcon: Icon(prefixIcon),
               suffixIcon: Icon(suffixIcon),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(borderRadius!),
                 borderSide: const BorderSide(
                   color: hLightGray,
                 ),
