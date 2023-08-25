@@ -21,7 +21,7 @@ class HotelCard extends StatelessWidget {
       },
       child: Container(
         width: 200.0,
-        margin: const EdgeInsets.symmetric(horizontal: 3.0),
+        padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3.0),
         child: Card(
           elevation: 0,
           shape: RoundedRectangleBorder(

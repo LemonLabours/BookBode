@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../Models/hotel_model.dart';
 import '../../Core/services/Database/database.dart';
+
+import 'widgets/cities_widget.dart';
+import 'widgets/home_app_bar.dart';
 import 'widgets/hotel_list.dart';
 
 class HomeView extends StatefulWidget {
@@ -37,7 +40,8 @@ class _HomeViewState extends State<HomeView> {
             } else {
               return Column(
                 children: [
-                  const Spacer(),
+                  const HomeAppBar(),
+                  const CitiesWidget(),
                   Expanded(
                     child: HotelListView(hotels: snapshot.data!),
                   ),

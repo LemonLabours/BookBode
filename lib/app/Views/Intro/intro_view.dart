@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Core/bloc/authentication/bloc/authentication_bloc.dart';
 import '../../Core/utilities/constants/colors.dart';
-import '../Home/home_view.dart';
+import '../../Core/utilities/shared/nav_bar_view.dart';
 
 class IntroView extends StatefulWidget {
   const IntroView({super.key});
@@ -19,7 +19,7 @@ class _IntroViewState extends State<IntroView> {
       listener: (context, state) {
         if (state is AuthenticationSuccess) {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomeView()));
+              MaterialPageRoute(builder: (context) => const NavBarView()));
         } else if (state is AuthenticationFailed) {
           // Delayed to ensure the context is still valid
           Future.delayed(const Duration(milliseconds: 500), () {
