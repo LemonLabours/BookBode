@@ -144,6 +144,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.2"
+  gradient_elevated_button:
+    dependency: "direct main"
+    description:
+      name: gradient_elevated_button
+      sha256: "6ab6edf516cf239aa1495c38cbd838a04f95dde4344f96d5824d0236231822d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   hive:
     dependency: transitive
     description:
