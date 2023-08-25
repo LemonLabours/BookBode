@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_3/app/Core/utilities/constants/colors.dart';
-import 'package:project_3/app/Core/utilities/constants/spacing.dart';
+
+import '../constants/colors.dart';
+import '../constants/spacing.dart';
+
 
 class ButtonsWidgets extends StatelessWidget {
   const ButtonsWidgets(

@@ -1,11 +1,10 @@
-// authentication_service.dart
 import 'dart:convert';
 import 'dart:math';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../../../main.dart';
 
 class AuthenticationService {
@@ -67,10 +66,29 @@ class AuthenticationService {
       throw 'No idToken';
     }
 
-    return supabase.auth.signInWithIdToken(
+    final signInResponse = await supabase.auth.signInWithIdToken(
       provider: Provider.google,
       idToken: idToken,
       nonce: rawNonce,
     );
+
+    // After successfully signing in with Google, add the user to the `customers` table
+    await _addUserToCustomersTable(signInResponse.user!.id);
+
+    return signInResponse;
+  }
+
+  Future<void> _addUserToCustomersTable(String userId) async {
+    final response = await supabase.from('customers').upsert([
+      {'customer_id': userId}
+    ]).single(); // expecting a single row
+
+    // If there's an error adding to the customers table, throw it
+    if (response.error != null) {
+      if (kDebugMode) {
+        print("Error Details: ${response.error.message}");
+      }
+      throw response.error!;
+    }
   }
 }

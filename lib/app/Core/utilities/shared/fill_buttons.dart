@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_elevated_button/gradient_elevated_button.dart';
-import 'package:project_3/app/Core/utilities/constants/colors.dart';
+
+import '../constants/colors.dart';
+
 
 class FillButtons extends StatelessWidget {
   const FillButtons(

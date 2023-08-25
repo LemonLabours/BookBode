@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_3/app/Core/utilities/constants/colors.dart';
-import 'package:project_3/app/Core/utilities/constants/spacing.dart';
+
+import '../constants/colors.dart';
+import '../constants/spacing.dart';
 
 class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget(
@@ -9,7 +10,7 @@ class TextFieldWidget extends StatelessWidget {
       this.hintText,
       this.prefixIcon,
       this.suffixIcon,
-      this.InputType,
+      this.inputType,
       this.maxLines,
       this.textController,
       this.onSubmitted,
@@ -21,7 +22,7 @@ class TextFieldWidget extends StatelessWidget {
   final String? hintText;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
-  final TextInputType? InputType;
+  final TextInputType? inputType;
   final int? maxLines;
   final TextEditingController? textController;
   final Function(String)? onSubmitted;
@@ -45,7 +46,7 @@ class TextFieldWidget extends StatelessWidget {
           width: width,
           child: TextField(
             style: const TextStyle(color: hBlachColor, fontSize: 16),
-            keyboardType: InputType,
+            keyboardType: inputType,
             maxLines: maxLines,
             obscureText: obscureText ?? false,
             onSubmitted: onSubmitted,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'app/Core/utilities/constants/colors.dart';
+import 'app/Views/Home/home_view.dart';
 import 'app/Views/Intro/intro_view.dart';
 
 void main() async {
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(),
+      routes: {
+        '/home': (context) => const HomeView(),
+      },
       home: AnimatedSplashScreen(
         duration: 4000,
         splash: Image.asset('assets/imgs/BBLogo.png'),
