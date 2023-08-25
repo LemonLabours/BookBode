@@ -1,12 +1,23 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:project_3/app/Views/Intro/intro_view.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'app/Core/utilities/constants/colors.dart';
+import 'app/Views/Intro/intro_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://zfwjwwdbhwoypbrcdeqc.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpmd2p3d2RiaHdveXBicmNkZXFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI4NjQzMjgsImV4cCI6MjAwODQ0MDMyOH0.3bJD7jBg95f4ZUWEEUgUx_98qPJWHIw5aC21aJ9QU9w',
+  );
+
   runApp(const MyApp());
 }
+
+final supabase = Supabase.instance.client;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
