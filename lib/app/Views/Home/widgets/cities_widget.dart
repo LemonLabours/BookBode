@@ -13,7 +13,7 @@ class _CitiesWidgetState extends State<CitiesWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(right: 24, left: 24, top: 24),
+      padding: const EdgeInsets.only(right: 24, left: 24, top: 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

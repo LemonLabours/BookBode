@@ -1,9 +1,6 @@
 import 'package:bookbode/app/Core/utilities/constants/colors.dart';
 import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
-import 'package:bookbode/app/Core/utilities/shared/fill_buttons.dart';
-import 'package:bookbode/app/Core/utilities/shared/text_fields_widgets.dart';
 import 'package:bookbode/app/Models/hotel_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Core/services/Database/database.dart';
@@ -17,124 +14,143 @@ class HomeAppBar extends StatefulWidget {
 
 class _HomeAppBarState extends State<HomeAppBar> {
   final TextEditingController _searchController = TextEditingController();
+  final focusNode = FocusNode();
   List<Hotel> searchResults = [];
   final DatabaseService _databaseService = DatabaseService();
+  OverlayEntry? overlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      if (!focusNode.hasFocus) {
+        removeOverlay();
+      }
+    });
+  }
+
+  void removeOverlay() {
+    overlayEntry?.remove();
+    overlayEntry = null;
+  }
 
   void _handleSearch() async {
+    final localContext = context;
+
     String searchText = _searchController.text.trim();
     if (searchText.isNotEmpty) {
       try {
         searchResults =
             await _databaseService.searchHotelsByLocation(searchText);
-        // Here, you can update your UI with the search results or navigate to another page to display them.
-        // For now, let's print the results to console:
-        if (kDebugMode) {
-          print(searchResults);
-        }
+        removeOverlay();
+        overlayEntry = createOverlayEntry(localContext);
+        Overlay.of(localContext).insert(overlayEntry!);
       } catch (error) {
-        // Display a Snackbar with the error message.
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(localContext).showSnackBar(
           SnackBar(
             content: Text('Error searching for hotels: ${error.toString()}'),
             behavior: SnackBarBehavior.floating,
             action: SnackBarAction(
               label: 'Close',
               onPressed: () {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(localContext).hideCurrentSnackBar();
               },
             ),
           ),
         );
-
-        if (kDebugMode) {
-          print('Error searching for hotels: $error');
-        }
       }
+    } else {
+      removeOverlay();
     }
+  }
+
+  OverlayEntry createOverlayEntry(BuildContext context) {
+    final renderBox = context.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    final offset = renderBox.localToGlobal(Offset.zero);
+
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        left: offset.dx,
+        top: offset.dy + size.height,
+        width: size.width,
+        child: Material(
+          elevation: 4,
+          child: ListView.builder(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: searchResults.length,
+            itemBuilder: (context, index) => ListTile(
+              title: Text(searchResults[index].name),
+              onTap: () {
+                _searchController.text = searchResults[index].name;
+                removeOverlay();
+              },
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
+      height: 190,
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [primary, secondary],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: babyAndDarkBlueGradient,
       ),
-      child: Column(
-        children: [
-          kVSpace16,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Stack(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 22),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ResponsiveSpacing.height(context, xxlarge),
+            Stack(
               children: [
-                Row(
-                  children: [
-                    const Text(
-                      'Hello!',
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: hWhiteColor),
+                TextField(
+                  controller: _searchController,
+                  style: const TextStyle(
+                      color: Colors.white), // Add this for the input text color
+                  decoration: InputDecoration(
+                    hintText: "Where do you want to stay?",
+                    hintStyle: const TextStyle(
+                        color: Colors.white), // Set hint text color to white
+                    prefixIcon: const Icon(Icons.search,
+                        color: Colors.white), // Set icon color to white
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: const BorderSide(
+                          color: Colors.white), // Set border color to white
                     ),
-                    const Spacer(),
-                    SizedBox(
-                      height: 210,
-                      width: 210,
-                      child: Image.asset(
-                        "assets/imgs/1.png",
-                        fit: BoxFit.fill,
-                      ),
-                    )
-                  ],
-                ),
-
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  child: Stack(
-                    
-                    children: [
-// <<<<<<< HomeScreen
-//                       const TextFieldWidget(
-// =======
-//                       TextFieldWidget(
-//                         textController: _searchController,
-// >>>>>>> main
-//                         borderRadius: 50,
-//                         prefixIcon: Icons.search,
-//                         hintText: "Where do you want to stay?",
-//                       ),
-                        
-                      Positioned(
-                        top: 36,
-                        bottom: 8,
-                        right: 10,
-                        child: FillButtons(
-                          text: "Search",
-                          height: 10,
-                          width: 90,
-                          fontSize: 14,
-// <<<<<<< HomeScreen
-//                           onPressed: () {
-                            
-//                           },
-// =======
-//                           onPressed: _handleSearch, 
-// >>>>>>> main
-//                         ),
-                      ),
-                    ],
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: const BorderSide(
+                          color: Colors
+                              .white), // Set enabled border color to white
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 2.0), // Set focused border color and width
+                    ),
                   ),
+                  onChanged: (value) => _handleSearch(),
+                  focusNode: focusNode,
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    removeOverlay();
+    super.dispose();
   }
 }

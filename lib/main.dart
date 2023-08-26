@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'app/Core/bloc/authentication/bloc/authentication_bloc.dart';
+
+import 'app/Core/bloc/authentication_bloc/authentication_bloc.dart';
+
+
+
 
 
 void main() async {

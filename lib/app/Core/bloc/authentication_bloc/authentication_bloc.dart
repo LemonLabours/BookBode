@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import '../../../services/Authentication/authentication.dart';
+import '../../services/Authentication/authentication.dart';
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 

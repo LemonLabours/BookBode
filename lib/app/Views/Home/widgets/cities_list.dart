@@ -17,6 +17,7 @@ class _CitiesListState extends State<CitiesList> {
     "5.png": "Roma",
     "6.png": "Jakarta",
   };
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,18 +31,18 @@ class _CitiesListState extends State<CitiesList> {
               margin: const EdgeInsets.only(right: 24),
               child: Column(children: [
                 Container(
-                  height: 80,
-                  width: 80,
+                  height: 60,
+                  width: 60,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color: hMnueColor,
                   ),
-                  child: SizedBox(
-                    height: 50,
-                    width: 50,
+                  child: ClipOval(
                     child: Image.asset(
                       "assets/imgs/${citiesList.keys.elementAt(index)}",
                       fit: BoxFit.cover,
+                      height: 80, // match the container's height
+                      width: 80, // match the container's width
                     ),
                   ),
                 ),

@@ -17,7 +17,7 @@ class TextFieldWidget extends StatelessWidget {
       this.lebel,
       this.height = 46,
       this.width,
-      this.borderRadius = 8});
+      this.borderRadius = 8, required void Function(dynamic value) onChanged});
 
   final bool? obscureText;
   final String? hintText;

@@ -1,8 +1,9 @@
 import 'package:bookbode/app/Views/Home/widgets/favorite_place.dart';
 import 'package:flutter/material.dart';
+import '../../Core/utilities/constants/colors.dart';
+import '../../Core/utilities/shared/sheet_layout_widget.dart';
 import '../../Models/hotel_model.dart';
 import '../../Core/services/Database/database.dart';
-
 import 'widgets/cities_widget.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/hotel_list.dart';
@@ -39,15 +40,25 @@ class _HomeViewState extends State<HomeView> {
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Text('No hotels found.');
             } else {
-              return Column(
-                children: [
-                  const HomeAppBar(),
-                  const CitiesWidget(),
-                  const FavoritePlae(),
-                  Expanded(
-                    child: HotelListView(hotels: snapshot.data!),
+              return Container(
+                decoration:
+                    const BoxDecoration(gradient: babyAndDarkBlueGradient),
+                child: SingleChildScrollView(
+                  // Added this
+                  child: Column(
+                    children: [
+                      const HomeAppBar(),
+                      BottomContainer(
+                          child: Column(children: [
+                        const CitiesWidget(),
+                        const FavoritePlae(),
+                        Expanded(
+                          child: HotelListView(hotels: snapshot.data!),
+                        ),
+                      ])),
+                    ],
                   ),
-                ],
+                ),
               );
             }
           },

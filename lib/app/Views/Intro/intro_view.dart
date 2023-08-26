@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../Core/bloc/authentication/bloc/authentication_bloc.dart';
+import '../../Core/bloc/authentication_bloc/authentication_bloc.dart';
 import '../../Core/utilities/constants/colors.dart';
 import '../../Core/utilities/constants/spacing.dart';
 import '../../Core/utilities/shared/nav_bar_view.dart';
@@ -42,17 +42,16 @@ class _IntroViewState extends State<IntroView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const FormTitle(text: 'BookBode'),
-                      ResponsiveSpacing.height(context, xxxlarge),
+                      ResponsiveSpacing.height(context, xxxxlarge),
                       const CenteredParagraphText(
                           text:
                               'Experience luxury at your fingertips. Discover and book the finest hotels with BookBode.'),
-                      ResponsiveSpacing.height(context, xxlarge),
+                      ResponsiveSpacing.height(context, xxxlarge),
                       Center(
                         child: state is AuthenticationInProgress
                             ? const CircularProgressIndicator()
                             : const GoogleSignInButton(),
                       ),
-                      ResponsiveSpacing.height(context, xlarge),
                     ],
                   ),
                 ),

@@ -57,7 +57,7 @@ class DatabaseService {
     return hotels;
   }
 
-  // Inside your DatabaseService class...
+ 
 
   Future<void> createBooking(Booking booking) async {
     final response = await supabase.from('bookings').insert([
@@ -69,7 +69,7 @@ class DatabaseService {
           'An error occurred while creating the booking.');
     }
 
-    // You could return the inserted booking's ID or any other relevant information here, if needed.
+   
   }
 
   Future<void> createReview(Review review) async {
