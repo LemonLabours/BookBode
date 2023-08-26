@@ -38,22 +38,29 @@ class BookingView extends StatelessWidget {
         bloc.basePrice = hotel.price.toDouble();
 
         return Scaffold(
-          appBar: AppBar(title: Text("Booking for ${hotel.name}")),
+          backgroundColor: hWhiteColor,
+          appBar: AppBar(
+              backgroundColor: hWhiteColor,
+              elevation: 0,
+              title: Text(
+                "Booking for ${hotel.name}",
+                style: const TextStyle(color: hBlachColor),
+              )),
           body: Padding(
 
             padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                kVSpace32,
+                kVSpace16,
                 Row(
                   children: [
                     const Text(
                       'Select Date:',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 8),
+                    kVSpace8,
                     TextButton(
                       onPressed: () async {
                         DateTime? picked = await showDatePicker(
@@ -76,13 +83,12 @@ class BookingView extends StatelessWidget {
                     ),
                   ],
                 ),
-                kVSpace32,
+                kVSpace16,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextFieldWidget(
-                      height: 50,
-                      width: 150,
+                      width: 160,
                       prefixIcon: Icons.person_add_alt_sharp,
                       inputType: TextInputType.number,
                       textController: bloc.guestsController,
@@ -92,8 +98,7 @@ class BookingView extends StatelessWidget {
                       hintText: '3 person',
                     ),
                     TextFieldWidget(
-                      height: 50,
-                      width: 150,
+                      width: 160,
                       prefixIcon: Icons.hotel,
                       inputType: TextInputType.number,
                       textController: bloc.roomsController,
@@ -104,7 +109,7 @@ class BookingView extends StatelessWidget {
                     ),
                   ],
                 ),
-                kVSpace32,
+                kVSpace16,
                 Text(
                   'Price per night x ${bloc.roomsController.text} = ${bloc.totalPrice}',
                   style: const TextStyle(
@@ -114,8 +119,6 @@ class BookingView extends StatelessWidget {
                 ),
                 kVSpace32,
                 TextFieldWidget(
-                  height: 50,
-                  // width: 150,
                   prefixIcon: Icons.money_outlined,
                   inputType: TextInputType.number,
                   textController: bloc.couponController,
