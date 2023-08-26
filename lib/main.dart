@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'app/Core/bloc/booking_bloc/booking_bloc.dart';
 
-import 'app/Core/bloc/authentication_bloc/authentication_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,8 +47,7 @@ class MyApp extends StatelessWidget {
           duration: 4000,
           splash: Image.asset('assets/imgs/BBLogo.png'),
           splashIconSize: 200.0,
-          // nextScreen: const IntroView(),
-          nextScreen: const NavBarView(),
+          nextScreen: const IntroView(),
           splashTransition: SplashTransition.slideTransition,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
           backgroundColor: Colors.white,

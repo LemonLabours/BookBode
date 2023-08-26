@@ -23,7 +23,9 @@ class BookingView extends StatelessWidget {
       listener: (context, state) {
         if (state is BookingSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
+
             const SnackBar(content: Text("Booking Successful!")),
+
           );
         } else if (state is BookingError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -38,6 +40,7 @@ class BookingView extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(title: Text("Booking for ${hotel.name}")),
           body: Padding(
+
             padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,6 +140,7 @@ class BookingView extends StatelessWidget {
                 ),
                 const Spacer(),
                 FillButtons(
+
                   onPressed: () {
                     var uuid = const Uuid();
                     Booking booking = Booking(
@@ -149,7 +153,10 @@ class BookingView extends StatelessWidget {
                     );
                     bloc.add(ConfirmBookingEvent(booking));
                   },
+
                   text: "Confirm Booking",
+
+
                 ),
               ],
             ),
