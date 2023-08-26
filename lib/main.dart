@@ -1,15 +1,13 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:bookbode/app/Views/login/login.dart';
+import 'package:bookbode/app/Views/Home/widgets/home_app_bar.dart';
+import 'package:bookbode/app/Views/Intro/intro_view.dart';
+import 'package:bookbode/app/Views/Review/review_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/Core/bloc/authentication_bloc/authentication_bloc.dart';
-
-
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,8 +37,7 @@ class MyApp extends StatelessWidget {
           splash: Image.asset('assets/imgs/BBLogo.png'),
           splashIconSize: 200.0,
           //nextScreen: const IntroView(),
-          nextScreen: const Login(),
-
+          nextScreen: const ReviewView(),
           splashTransition: SplashTransition.slideTransition,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
           backgroundColor: Colors.white,
