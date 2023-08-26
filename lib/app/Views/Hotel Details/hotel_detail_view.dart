@@ -1,3 +1,4 @@
+import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../Core/services/Database/database.dart';
@@ -32,7 +33,8 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
 
   Future<void> _fetchReviews() async {
     try {
-      _reviews = await DatabaseService().getReviewsForHotel(widget.hotel.hotelId);
+      _reviews =
+          await DatabaseService().getReviewsForHotel(widget.hotel.hotelId);
       setState(() => _isLoading = false);
     } catch (e) {
       if (kDebugMode) {
@@ -48,6 +50,7 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
       body: Stack(
         children: [
           HotelImage(imageUrl: widget.hotel.hotelImage),
+         
           const GradientOverlay(),
           BottomContainer(
             child: HotelDetailsContent(
@@ -102,7 +105,8 @@ class HotelDetailsContent extends StatelessWidget {
   final List<Review>? reviews;
   final bool isLoading;
 
-  const HotelDetailsContent({super.key, 
+  const HotelDetailsContent({
+    super.key,
     required this.hotel,
     required this.reviews,
     required this.isLoading,
@@ -115,15 +119,31 @@ class HotelDetailsContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HotelName(name: hotel.name),
+          kVSpace8,
           HotelLocation(location: hotel.location),
+          kVSpace8,
           RatingAndReviews(hotelRating: hotel.rating, reviews: reviews),
+          kVSpace32,
           Description(title: 'Description', description: hotel.description),
+          kVSpace32,
           Facilities(facilities: hotel.facilities),
+          kVSpace16,
           ReviewSection(isLoading: isLoading, reviews: reviews),
-          const BookingButtons()
+          // FillButtons(
+          //   width: 150,
+          //   height: 40,
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => const ReviewView()),
+          //     );
+          //   },
+          //   text: 'Add Review',
+          // ),
+          kVSpace32,
+          BookingButtons(hotel: hotel),
         ],
       ),
     );
   }
 }
-

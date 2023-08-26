@@ -1,3 +1,4 @@
+import 'package:bookbode/app/Views/Home/widgets/favorite_place.dart';
 import 'package:flutter/material.dart';
 import '../../Models/hotel_model.dart';
 import '../../Core/services/Database/database.dart';
@@ -42,6 +43,7 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   const HomeAppBar(),
                   const CitiesWidget(),
+                  const FavoritePlae(),
                   Expanded(
                     child: HotelListView(hotels: snapshot.data!),
                   ),

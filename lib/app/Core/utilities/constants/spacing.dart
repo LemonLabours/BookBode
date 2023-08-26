@@ -16,7 +16,6 @@ const kHSpace128 = SizedBox(width: 128);
 
 
 
-
 class ResponsiveSpacing {
   static SizedBox height(BuildContext context, double factor) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -38,3 +37,19 @@ const xxlarge = 0.2;
 const xxxlarge = 0.25;
 const xxxxlarge = 0.3;
 const xxxxxlarge = 0.45;
+
+
+
+extension ScreenSize on BuildContext{
+  getWidth()
+  {
+    return MediaQuery.of(this).size.width;
+
+  }
+
+  getHeight()
+  {
+    return MediaQuery.of(this).size.height;
+
+  }
+}

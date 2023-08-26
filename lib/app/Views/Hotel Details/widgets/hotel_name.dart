@@ -19,7 +19,12 @@ class HotelLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(location ?? "Unknown location",
-        style: TextStyle(fontSize: 16.0, color: Colors.grey[700]));
+    return Text(
+      location ?? "Unknown location",
+      style: TextStyle(
+        fontSize: 16.0,
+        color: Colors.grey[700],
+      ),
+    );
   }
 }

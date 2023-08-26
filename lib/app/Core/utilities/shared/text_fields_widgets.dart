@@ -15,7 +15,7 @@ class TextFieldWidget extends StatelessWidget {
       this.textController,
       this.onSubmitted,
       this.lebel,
-      this.height,
+      this.height = 46,
       this.width,
       this.borderRadius = 8});
 
@@ -58,7 +58,7 @@ class TextFieldWidget extends StatelessWidget {
               hintStyle: const TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.w400,
-                  fontSize: 12),
+                  fontSize: 14),
               prefixIcon: Icon(prefixIcon),
               suffixIcon: Icon(suffixIcon),
               border: OutlineInputBorder(
@@ -67,6 +67,8 @@ class TextFieldWidget extends StatelessWidget {
                   color: hLightGray,
                 ),
               ),
+              filled: true,
+              fillColor: hWhiteColor,
             ),
           ),
         ),

@@ -91,19 +91,24 @@ class _HomeAppBarState extends State<HomeAppBar> {
                     )
                   ],
                 ),
-                kVSpace32,
-                Positioned(
+
                   bottom: 0,
                   right: 0,
                   left: 0,
                   child: Stack(
+                    
                     children: [
-                      TextFieldWidget(
-                        textController: _searchController,
-                        borderRadius: 50,
-                        prefixIcon: Icons.search,
-                        hintText: "Where do you want to stay?",
-                      ),
+// <<<<<<< HomeScreen
+//                       const TextFieldWidget(
+// =======
+//                       TextFieldWidget(
+//                         textController: _searchController,
+// >>>>>>> main
+//                         borderRadius: 50,
+//                         prefixIcon: Icons.search,
+//                         hintText: "Where do you want to stay?",
+//                       ),
+                        
                       Positioned(
                         top: 36,
                         bottom: 8,
@@ -111,10 +116,16 @@ class _HomeAppBarState extends State<HomeAppBar> {
                         child: FillButtons(
                           text: "Search",
                           height: 10,
-                          width: 120,
+                          width: 90,
                           fontSize: 14,
-                          onPressed: _handleSearch, // Add this line
-                        ),
+// <<<<<<< HomeScreen
+//                           onPressed: () {
+                            
+//                           },
+// =======
+//                           onPressed: _handleSearch, 
+// >>>>>>> main
+//                         ),
                       ),
                     ],
                   ),
