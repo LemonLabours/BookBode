@@ -114,26 +114,20 @@ class _HomeAppBarState extends State<HomeAppBar> {
                       color: Colors.white), // Add this for the input text color
                   decoration: InputDecoration(
                     hintText: "Where do you want to stay?",
-                    hintStyle: const TextStyle(
-                        color: Colors.white), // Set hint text color to white
-                    prefixIcon: const Icon(Icons.search,
-                        color: Colors.white), // Set icon color to white
+                    hintStyle: const TextStyle(color: Colors.white),
+                    prefixIcon: const Icon(Icons.search, color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
-                      borderSide: const BorderSide(
-                          color: Colors.white), // Set border color to white
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
-                      borderSide: const BorderSide(
-                          color: Colors
-                              .white), // Set enabled border color to white
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
-                      borderSide: const BorderSide(
-                          color: Colors.white,
-                          width: 2.0), // Set focused border color and width
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 2.0),
                     ),
                   ),
                   onChanged: (value) => _handleSearch(),

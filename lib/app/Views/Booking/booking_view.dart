@@ -67,7 +67,7 @@ class BookingView extends StatelessWidget {
                               DateFormat('yyyy-MM-dd').format(picked);
                           bloc.dateController.text = formattedDate;
                           bloc.add(DatePicked(
-                              formattedDate)); // Inform BLoC of the date change
+                              formattedDate)); 
                         }
                       },
                       child: Text(bloc.dateController.text.isEmpty

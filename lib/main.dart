@@ -1,16 +1,13 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bookbode/app/Core/bloc/booking_bloc/booking_bloc.dart';
-import 'package:bookbode/app/Core/utilities/shared/nav_bar_view.dart';
-import 'package:bookbode/app/Views/Booking/booking_view.dart';
-import 'package:bookbode/app/Views/Home/home_view.dart';
-import 'package:bookbode/app/Views/Home/widgets/home_app_bar.dart';
-import 'package:bookbode/app/Views/Intro/intro_view.dart';
-import 'package:bookbode/app/Views/Review/review_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'app/Core/bloc/booking_bloc/booking_bloc.dart';
+import 'app/Core/bloc/authentication_bloc/authentication_bloc.dart';
+import 'app/Core/bloc/order_bloc/order_bloc.dart';
+import 'app/Views/Intro/intro_view.dart';
+
 
 
 void main() async {
@@ -39,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<BookingBloc>(
           create: (context) => BookingBloc(),
+        ),
+             BlocProvider<OrderBloc>(
+          create: (context) => OrderBloc(),
         ),
       ],
       child: MaterialApp(
