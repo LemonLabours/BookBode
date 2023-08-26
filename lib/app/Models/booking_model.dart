@@ -23,7 +23,7 @@ class Booking {
       createdAt: DateTime.parse(map['created_at']),
       hotelId: map['hotel_id'],
       checkInDate: map['check_in'],
-      totalPrice: map['total_price'],
+      totalPrice: (map['total_price'] as num).toDouble(),
       customerId: map['customers_id'],
     );
   }

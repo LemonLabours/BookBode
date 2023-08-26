@@ -102,4 +102,44 @@ class DatabaseService {
 
     return Coupon.fromMap(response.data);
   }
+
+  Future<List<Booking>> getBookingsForCustomer(String customerId) async {
+    final response = await supabase
+        .from('bookings')
+        .select('*')
+        .eq('customers_id', customerId);
+
+    if (response is Map && response.containsKey('error')) {
+      throw Exception(response['error']['message'] ?? 'An error occurred');
+    }
+
+    if (response is! List) {
+      throw Exception('Unexpected data format.');
+    }
+
+    final List<Booking> bookings =
+        (response).map((bookingData) => Booking.fromMap(bookingData)).toList();
+
+    return bookings;
+  }
+
+  Future<Hotel> getHotelById(String hotelId) async {
+    final response = await supabase
+        .from('hotels')
+        .select('*')
+        .eq('hotel_id', hotelId)
+        .single();
+
+    print('DEBUG: Response from getHotelById: $response');
+
+    if (response is Map<String, dynamic>) {
+      if (response.containsKey('error')) {
+        throw Exception(response['error']['message'] ?? 'An error occurred');
+      }
+
+      return Hotel.fromJson(response);
+    } else {
+      throw Exception('Unexpected data format.');
+    }
+  }
 }
