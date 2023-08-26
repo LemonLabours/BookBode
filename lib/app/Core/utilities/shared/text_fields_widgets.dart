@@ -15,7 +15,7 @@ class TextFieldWidget extends StatelessWidget {
     this.textController,
     this.onSubmitted,
     this.lebel,
-    this.height = 46,
+    this.height = 58,
     this.width,
     this.borderRadius = 8,
   });
@@ -44,11 +44,11 @@ class TextFieldWidget extends StatelessWidget {
               color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 16),
         ),
         kVSpace8,
-        SizedBox(
+        Container(
+          color: hWhiteColor,
           height: height,
           width: width,
           child: TextField(
-            style: const TextStyle(color: hBlachColor, fontSize: 16),
             keyboardType: inputType,
             maxLines: maxLines,
             obscureText: obscureText ?? false,
@@ -68,8 +68,6 @@ class TextFieldWidget extends StatelessWidget {
                   color: hLightGray,
                 ),
               ),
-              filled: true,
-              fillColor: hWhiteColor,
             ),
           ),
         ),
