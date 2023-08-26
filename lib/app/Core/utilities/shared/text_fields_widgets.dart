@@ -4,20 +4,21 @@ import '../constants/colors.dart';
 import '../constants/spacing.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  const TextFieldWidget(
-      {super.key,
-      this.obscureText,
-      this.hintText,
-      this.prefixIcon,
-      this.suffixIcon,
-      this.inputType,
-      this.maxLines,
-      this.textController,
-      this.onSubmitted,
-      this.lebel,
-      this.height = 46,
-      this.width,
-      this.borderRadius = 8, required void Function(dynamic value) onChanged});
+  const TextFieldWidget({
+    super.key,
+    this.obscureText,
+    this.hintText,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.inputType,
+    this.maxLines,
+    this.textController,
+    this.onSubmitted,
+    this.lebel,
+    this.height = 46,
+    this.width,
+    this.borderRadius = 8,
+  });
 
   final bool? obscureText;
   final String? hintText;

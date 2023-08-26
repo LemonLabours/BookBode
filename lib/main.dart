@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:bookbode/app/Views/Intro/intro_view.dart';
+import 'package:bookbode/app/Views/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -38,7 +38,8 @@ class MyApp extends StatelessWidget {
           duration: 4000,
           splash: Image.asset('assets/imgs/BBLogo.png'),
           splashIconSize: 200.0,
-          nextScreen: const IntroView(),
+          //nextScreen: const IntroView(),
+          nextScreen: const Login(),
 
           splashTransition: SplashTransition.slideTransition,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
