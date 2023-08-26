@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../../../main.dart';
 import '../../../Models/booking_model.dart';
 import '../../../Models/coupon_model.dart';
@@ -130,7 +132,9 @@ class DatabaseService {
         .eq('hotel_id', hotelId)
         .single();
 
-    print('DEBUG: Response from getHotelById: $response');
+    if (kDebugMode) {
+      print('DEBUG: Response from getHotelById: $response');
+    }
 
     if (response is Map<String, dynamic>) {
       if (response.containsKey('error')) {
@@ -140,6 +144,19 @@ class DatabaseService {
       return Hotel.fromJson(response);
     } else {
       throw Exception('Unexpected data format.');
+    }
+  }
+
+  Future<void> deleteBooking(String bookingId) async {
+    final response = await supabase
+        .from('bookings')
+        .delete()
+        .eq('booking_id', bookingId)
+        .single();
+
+    if (response.error != null) {
+      throw Exception(response.error!.message ??
+          'An error occurred while deleting the booking.');
     }
   }
 }
