@@ -1,3 +1,5 @@
+import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
+import 'package:bookbode/app/Core/utilities/shared/fill_buttons.dart';
 import 'package:flutter/material.dart';
 import '../../Core/services/Database/database.dart';
 import '../../Models/review_model.dart';
@@ -10,30 +12,37 @@ class ReviewView extends StatefulWidget {
 }
 
 class _ReviewViewState extends State<ReviewView> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _commentController = TextEditingController();
   double? _userRating;
   final String hotelId = "HOTEL_ID_HERE"; // Replace with actual hotel ID
-  final String userId = "USER_ID_HERE";   // Replace with actual user ID
+  final String userId = "USER_ID_HERE"; // Replace with actual user ID
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Write a Review')),
+      appBar: AppBar(title: const  Text('Write a Review')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextFormField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Your name',
+              ),
+            ),
+            TextFormField(
               controller: _commentController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Your Comment',
               ),
               maxLines: 5,
             ),
-            SizedBox(height: 16),
+            kVSpace16,
             DropdownButton<double>(
               value: _userRating,
-              hint: Text('Select Rating'),
+              hint: const Text('Select Rating'),
               onChanged: (newValue) {
                 setState(() {
                   _userRating = newValue;
@@ -48,9 +57,9 @@ class _ReviewViewState extends State<ReviewView> {
                 },
               ).toList(),
             ),
-            ElevatedButton(
+            FillButtons(
               onPressed: _submitReview,
-              child: Text('Submit Review'),
+               text:'Submit Review',
             ),
           ],
         ),
@@ -73,7 +82,7 @@ class _ReviewViewState extends State<ReviewView> {
       userRating: _userRating,
       comment: _commentController.text,
       hotelId: hotelId,
-      userId: userId,
+      userId: userId, username: '',
     );
 
     try {

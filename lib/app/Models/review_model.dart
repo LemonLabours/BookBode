@@ -3,12 +3,14 @@ import 'dart:core';
 class Review {
   final String reviewId;
   final DateTime createdAt;
+  final String username;
   final double? userRating;
   final String? comment;
   final String? hotelId;
   final String userId;
 
   Review({
+    required this.username, 
     required this.reviewId,
     required this.createdAt,
     this.userRating,
@@ -19,6 +21,7 @@ class Review {
 
   factory Review.fromMap(Map<String, dynamic> map) {
     return Review(
+      username: map['user_name'],
       reviewId: map['review_id'],
       createdAt: DateTime.parse(map['created_at']),
       userRating: map['user_rating'],
@@ -30,6 +33,7 @@ class Review {
 
   Map<String, dynamic> toMap() {
     return {
+      'user_name': username,
       'review_id': reviewId,
       'created_at': createdAt.toIso8601String(),
       'user_rating': userRating,

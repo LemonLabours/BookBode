@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../constants/spacing.dart';
 
-
 class ButtonsWidgets extends StatelessWidget {
   const ButtonsWidgets(
-      {super.key, this.onPressed, required this.text, this.icons});
+      {super.key, this.onPressed, required this.text, this.icons, this.image});
   final Function()? onPressed;
   final String text;
   final IconData? icons;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,11 @@ class ButtonsWidgets extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 20,
+            width: 20,
+            child: Image.asset(image ?? ''),
+          ),
           Icon(
             icons,
             color: hBlachColor,

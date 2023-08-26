@@ -1,3 +1,7 @@
+import 'package:bookbode/app/Core/utilities/constants/colors.dart';
+import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
+import 'package:bookbode/app/Core/utilities/shared/fill_buttons.dart';
+import 'package:bookbode/app/Core/utilities/shared/text_fields_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +23,9 @@ class BookingView extends StatelessWidget {
       listener: (context, state) {
         if (state is BookingSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Booking Successful!")),
+
+            const SnackBar(content: Text("Booking Successful!")),
+
           );
         } else if (state is BookingError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -34,71 +40,107 @@ class BookingView extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(title: Text("Booking for ${hotel.name}")),
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
+
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Select Date:',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                kVSpace32,
+                Row(
+                  children: [
+                    const Text(
+                      'Select Date:',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton(
+                      onPressed: () async {
+                        DateTime? picked = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2101),
+                        );
+                        if (picked != null) {
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(picked);
+                          bloc.dateController.text = formattedDate;
+                          bloc.add(DatePicked(
+                              formattedDate)); // Inform BLoC of the date change
+                        }
+                      },
+                      child: Text(bloc.dateController.text.isEmpty
+                          ? "Select a date"
+                          : bloc.dateController.text),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                TextButton(
-                  onPressed: () async {
-                    DateTime? picked = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime(2101),
-                    );
-                    if (picked != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(picked);
-                      bloc.dateController.text = formattedDate;
-                      bloc.add(DatePicked(
-                          formattedDate)); // Inform BLoC of the date change
-                    }
-                  },
-                  child: Text(bloc.dateController.text.isEmpty
-                      ? "Select a date"
-                      : bloc.dateController.text),
+                kVSpace32,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextFieldWidget(
+                      height: 50,
+                      width: 150,
+                      prefixIcon: Icons.person_add_alt_sharp,
+                      inputType: TextInputType.number,
+                      textController: bloc.guestsController,
+                      onSubmitted: (value) => bloc
+                          .add(UpdateBookingDetails(hotel.price.toDouble())),
+                      lebel: "Number of Guests",
+                      hintText: '3 person',
+                    ),
+                    TextFieldWidget(
+                      height: 50,
+                      width: 150,
+                      prefixIcon: Icons.hotel,
+                      inputType: TextInputType.number,
+                      textController: bloc.roomsController,
+                      onSubmitted: (value) => bloc
+                          .add(UpdateBookingDetails(hotel.price.toDouble())),
+                      lebel: "Number of Rooms",
+                      hintText: '2',
+                    ),
+                  ],
                 ),
-                TextField(
-                  controller: bloc.guestsController,
-                  onChanged: (value) =>
-                      bloc.add(UpdateBookingDetails(hotel.price.toDouble())),
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Number of Guests',
-                  ),
-                ),
-                TextField(
-                  controller: bloc.roomsController,
-                  onChanged: (value) =>
-                      bloc.add(UpdateBookingDetails(hotel.price.toDouble())),
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Number of Rooms',
-                  ),
-                ),
+                kVSpace32,
                 Text(
                   'Price per night x ${bloc.roomsController.text} = ${bloc.totalPrice}',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: primary),
                 ),
-                TextField(
-                  controller: bloc.couponController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Coupon',
-                  ),
+                kVSpace32,
+                TextFieldWidget(
+                  height: 50,
+                  // width: 150,
+                  prefixIcon: Icons.money_outlined,
+                  inputType: TextInputType.number,
+                  textController: bloc.couponController,
+                  lebel: "Enter Coupon",
                 ),
-                ElevatedButton(
-                  onPressed: () =>
-                      bloc.add(CheckCouponEvent(bloc.couponController.text)),
-                  child: const Text("Apply Coupon"),
+                kVSpace32,
+                Row(
+                  children: [
+                    FillButtons(
+                      width: 190,
+                      onPressed: () => bloc
+                          .add(CheckCouponEvent(bloc.couponController.text)),
+                      text: "Apply Coupon",
+                    ),
+                    const Spacer(),
+                    Text(
+                      "Total Price: ${bloc.totalPrice}",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    const Spacer(),
+                  ],
                 ),
-                Text("Total Price: ${bloc.totalPrice}"),
                 const Spacer(),
-                ElevatedButton(
+                FillButtons(
+
                   onPressed: () {
                     var uuid = const Uuid();
                     Booking booking = Booking(
@@ -111,7 +153,10 @@ class BookingView extends StatelessWidget {
                     );
                     bloc.add(ConfirmBookingEvent(booking));
                   },
-                  child: const Text("Confirm Booking"),
+
+                  text: "Confirm Booking",
+
+
                 ),
               ],
             ),
