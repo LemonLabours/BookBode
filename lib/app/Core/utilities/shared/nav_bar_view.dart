@@ -1,9 +1,10 @@
 import 'package:bookbode/app/Core/utilities/constants/colors.dart';
-import 'package:bookbode/app/Views/Booking/booking_view.dart';
 import 'package:bookbode/app/Views/Home/home_view.dart';
 import 'package:bookbode/app/Views/Notifiy/notifiy_view.dart';
 import 'package:bookbode/app/Views/Profile/profile_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../../Views/Orders/order_view.dart';
 
 class NavBarView extends StatefulWidget {
   const NavBarView({super.key});
@@ -15,7 +16,7 @@ class NavBarView extends StatefulWidget {
 class _NavBarViewState extends State<NavBarView> {
   List pages = [
     const HomeView(),
-    const BookingView(),
+    const OrderView(),
     const NotificationView(),
     const ProfileView(),
   ];

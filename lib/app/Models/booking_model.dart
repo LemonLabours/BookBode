@@ -4,7 +4,7 @@ class Booking {
   final String bookingId;
   final DateTime createdAt;
   final String? hotelId;
-  final DateTime? checkInDate;
+  final String? checkInDate;
   final double? totalPrice;
   final String? customerId;
 
@@ -22,9 +22,7 @@ class Booking {
       bookingId: map['booking_id'],
       createdAt: DateTime.parse(map['created_at']),
       hotelId: map['hotel_id'],
-      checkInDate: map['check_in_date'] != null
-          ? DateTime.parse(map['check_in_date'])
-          : null,
+      checkInDate: map['check_in'],
       totalPrice: map['total_price'],
       customerId: map['customers_id'],
     );
@@ -35,7 +33,7 @@ class Booking {
       'booking_id': bookingId,
       'created_at': createdAt.toIso8601String(),
       'hotel_id': hotelId,
-      'check_in_date': checkInDate?.toIso8601String(),
+      'check_in': checkInDate,
       'total_price': totalPrice,
       'customers_id': customerId,
     };

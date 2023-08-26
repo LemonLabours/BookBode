@@ -1,5 +1,6 @@
 import '../../../../main.dart';
 import '../../../Models/booking_model.dart';
+import '../../../Models/coupon_model.dart';
 import '../../../Models/hotel_model.dart';
 import '../../../Models/review_model.dart';
 
@@ -40,8 +41,10 @@ class DatabaseService {
   }
 
   Future<List<Hotel>> searchHotelsByLocation(String location) async {
-    final response = await supabase.from('hotels').select('*').ilike(
-        'location', '%$location%'); // use ILIKE for case-insensitive search
+    final response = await supabase
+        .from('hotels')
+        .select('*')
+        .ilike('location', '%$location%');
 
     if (response is Map && response.containsKey('error')) {
       throw Exception(response['error']['message'] ?? 'An error occurred');
@@ -57,8 +60,6 @@ class DatabaseService {
     return hotels;
   }
 
- 
-
   Future<void> createBooking(Booking booking) async {
     final response = await supabase.from('bookings').insert([
       booking.toMap(),
@@ -68,8 +69,6 @@ class DatabaseService {
       throw Exception(response['error']['message'] ??
           'An error occurred while creating the booking.');
     }
-
-   
   }
 
   Future<void> createReview(Review review) async {
@@ -80,5 +79,27 @@ class DatabaseService {
     if (response is Map && response.containsKey('error')) {
       throw Exception(response['error']['message'] ?? 'Error creating review.');
     }
+  }
+
+  Future<Coupon?> getCouponByCode(String couponCode) async {
+    final response = await supabase
+        .from('coupons')
+        .select('*')
+        .eq('code', couponCode)
+        .single();
+
+    if (response is Map && response.containsKey('error')) {
+      throw Exception(response['error']['message'] ?? 'An error occurred');
+    }
+
+    if (response.data == null) {
+      return null;
+    }
+
+    if (response.data is! Map) {
+      throw Exception('Unexpected data format.');
+    }
+
+    return Coupon.fromMap(response.data);
   }
 }

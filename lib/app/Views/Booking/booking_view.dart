@@ -1,96 +1,123 @@
 import 'package:flutter/material.dart';
-import '../../Core/services/Database/database.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
+import '../../../main.dart';
+import '../../Core/bloc/booking_bloc/booking_bloc.dart';
 import '../../Models/booking_model.dart';
+import '../../Models/hotel_model.dart';
 
-class BookingView extends StatefulWidget {
-  const BookingView({super.key});
+class BookingView extends StatelessWidget {
+  final Hotel hotel;
+  final userId = supabase.auth.currentUser?.id;
 
-  @override
-   createState() => _BookingViewState();
-}
-
-class _BookingViewState extends State<BookingView> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late Booking _booking;
-
-  final TextEditingController _hotelIdController = TextEditingController();
-  final TextEditingController _checkInDateController = TextEditingController();
-  final TextEditingController _totalPriceController = TextEditingController();
-  final TextEditingController _customerIdController = TextEditingController();
+  BookingView({Key? key, required this.hotel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Create Booking')),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _hotelIdController,
-                decoration: const InputDecoration(labelText: 'Hotel ID'),
-                validator: (value) => value!.isEmpty ? 'Please enter hotel ID' : null,
-              ),
-              TextFormField(
-                controller: _checkInDateController,
-                decoration: const InputDecoration(labelText: 'Check In Date (YYYY-MM-DD)'),
-                validator: (value) {
-                  if (value!.isEmpty) return 'Please enter check in date';
-                  try {
-                    DateTime.parse(value);
-                    return null;
-                  } catch (e) {
-                    return 'Invalid date format';
-                  }
-                },
-              ),
-              TextFormField(
-                controller: _totalPriceController,
-                decoration: const InputDecoration(labelText: 'Total Price'),
-                keyboardType: TextInputType.number,
-                validator: (value) => value!.isEmpty ? 'Please enter total price' : null,
-              ),
-              TextFormField(
-                controller: _customerIdController,
-                decoration: const InputDecoration(labelText: 'Customer ID'),
-                validator: (value) => value!.isEmpty ? 'Please enter customer ID' : null,
-              ),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text('Submit Booking'),
-              )
-            ],
+    return BlocConsumer<BookingBloc, BookingState>(
+      listener: (context, state) {
+        if (state is BookingSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Booking Successful!")),
+          );
+        } else if (state is BookingError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.error)),
+          );
+        }
+      },
+      builder: (context, state) {
+        final bloc = BlocProvider.of<BookingBloc>(context);
+        bloc.basePrice = hotel.price.toDouble();
+
+        return Scaffold(
+          appBar: AppBar(title: Text("Booking for ${hotel.name}")),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Select Date:',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: () async {
+                    DateTime? picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (picked != null) {
+                      String formattedDate =
+                          DateFormat('yyyy-MM-dd').format(picked);
+                      bloc.dateController.text = formattedDate;
+                      bloc.add(DatePicked(
+                          formattedDate)); // Inform BLoC of the date change
+                    }
+                  },
+                  child: Text(bloc.dateController.text.isEmpty
+                      ? "Select a date"
+                      : bloc.dateController.text),
+                ),
+                TextField(
+                  controller: bloc.guestsController,
+                  onChanged: (value) =>
+                      bloc.add(UpdateBookingDetails(hotel.price.toDouble())),
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Number of Guests',
+                  ),
+                ),
+                TextField(
+                  controller: bloc.roomsController,
+                  onChanged: (value) =>
+                      bloc.add(UpdateBookingDetails(hotel.price.toDouble())),
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Number of Rooms',
+                  ),
+                ),
+                Text(
+                  'Price per night x ${bloc.roomsController.text} = ${bloc.totalPrice}',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextField(
+                  controller: bloc.couponController,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter Coupon',
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () =>
+                      bloc.add(CheckCouponEvent(bloc.couponController.text)),
+                  child: const Text("Apply Coupon"),
+                ),
+                Text("Total Price: ${bloc.totalPrice}"),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    var uuid = const Uuid();
+                    Booking booking = Booking(
+                      bookingId: uuid.v4(),
+                      createdAt: DateTime.now(),
+                      checkInDate: bloc.dateController.text,
+                      totalPrice: bloc.totalPrice,
+                      hotelId: hotel.hotelId,
+                      customerId: userId,
+                    );
+                    bloc.add(ConfirmBookingEvent(booking));
+                  },
+                  child: const Text("Confirm Booking"),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
-  }
-
-  void _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      _booking = Booking(
-        bookingId: '', // Generate this dynamically or let the database do it
-        createdAt: DateTime.now(),
-        hotelId: _hotelIdController.text,
-        checkInDate: DateTime.parse(_checkInDateController.text),
-        totalPrice: double.parse(_totalPriceController.text),
-        customerId: _customerIdController.text,
-      );
-
-      try {
-        // Store the booking in the database
-        await DatabaseService().createBooking(_booking); // Note: You need to add createBooking method to your DatabaseService
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Booking created successfully!'))
-        );
-        Navigator.pop(context);
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error creating booking: $e'))
-        );
-      }
-    }
   }
 }

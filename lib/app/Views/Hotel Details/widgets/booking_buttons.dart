@@ -3,7 +3,6 @@ import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:bookbode/app/Core/utilities/shared/fill_buttons.dart';
 import 'package:bookbode/app/Models/hotel_model.dart';
 import 'package:flutter/material.dart';
-
 import '../../Booking/booking_view.dart';
 
 class BookingButtons extends StatelessWidget {
@@ -30,7 +29,8 @@ class BookingButtons extends StatelessWidget {
                 children: [
                   Text(
                     '\$${hotel.price}',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const Text(
                     '/night',
@@ -44,16 +44,18 @@ class BookingButtons extends StatelessWidget {
             ],
           ),
           FillButtons(
-            width: 280,
+            width: 200,
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const BookingView()),
+                MaterialPageRoute(
+                    builder: (context) => BookingView(
+                          hotel: hotel,
+                        )),
               );
             },
             text: 'Book room',
           ),
-          
         ],
       ),
     );
