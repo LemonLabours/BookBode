@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../Core/bloc/authentication/bloc/authentication_bloc.dart';
 import '../../Core/utilities/constants/colors.dart';
+import '../../Core/utilities/constants/spacing.dart';
 import '../../Core/utilities/shared/nav_bar_view.dart';
+import '../../Core/utilities/shared/sheet_layout_widget.dart';
+import '../../Core/utilities/shared/text_widgets.dart';
+import 'widgets/google_button.dart';
 
 class IntroView extends StatefulWidget {
   const IntroView({super.key});
@@ -21,7 +24,6 @@ class _IntroViewState extends State<IntroView> {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const NavBarView()));
         } else if (state is AuthenticationFailed) {
-          // Delayed to ensure the context is still valid
           Future.delayed(const Duration(milliseconds: 500), () {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
@@ -33,41 +35,28 @@ class _IntroViewState extends State<IntroView> {
         return Scaffold(
           body: Container(
             decoration: const BoxDecoration(gradient: babyAndDarkBlueGradient),
-            child: Center(
-              child: state is AuthenticationInProgress
-                  ? const CircularProgressIndicator()
-                  : ElevatedButton.icon(
-                      onPressed: () {
-                        context
-                            .read<AuthenticationBloc>()
-                            .add(SignInWithGoogleRequested());
-                      },
-                      icon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/imgs/google-logo.png',
-                            height: 40, width: 40),
+            child: Stack(
+              children: [
+                BottomContainer(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const FormTitle(text: 'BookBode'),
+                      ResponsiveSpacing.height(context, xxxlarge),
+                      const CenteredParagraphText(
+                          text:
+                              'Experience luxury at your fingertips. Discover and book the finest hotels with BookBode.'),
+                      ResponsiveSpacing.height(context, xxlarge),
+                      Center(
+                        child: state is AuthenticationInProgress
+                            ? const CircularProgressIndicator()
+                            : const GoogleSignInButton(),
                       ),
-                      label: const Text(
-                        'Sign in with Google',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        side: const BorderSide(
-                          color: Colors.black,
-                          width: 2,
-                        ),
-                      ),
-                    ),
+                      ResponsiveSpacing.height(context, xlarge),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         );

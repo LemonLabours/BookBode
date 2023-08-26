@@ -2,10 +2,56 @@ import 'package:bookbode/app/Core/utilities/constants/colors.dart';
 import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:bookbode/app/Core/utilities/shared/fill_buttons.dart';
 import 'package:bookbode/app/Core/utilities/shared/text_fields_widgets.dart';
+import 'package:bookbode/app/Models/hotel_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+import '../../../Core/services/Database/database.dart';
+
+class HomeAppBar extends StatefulWidget {
+  const HomeAppBar({Key? key}) : super(key: key);
+
+  @override
+  createState() => _HomeAppBarState();
+}
+
+class _HomeAppBarState extends State<HomeAppBar> {
+  final TextEditingController _searchController = TextEditingController();
+  List<Hotel> searchResults = [];
+  final DatabaseService _databaseService = DatabaseService();
+
+  void _handleSearch() async {
+    String searchText = _searchController.text.trim();
+    if (searchText.isNotEmpty) {
+      try {
+        searchResults =
+            await _databaseService.searchHotelsByLocation(searchText);
+        // Here, you can update your UI with the search results or navigate to another page to display them.
+        // For now, let's print the results to console:
+        if (kDebugMode) {
+          print(searchResults);
+        }
+      } catch (error) {
+        // Display a Snackbar with the error message.
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error searching for hotels: ${error.toString()}'),
+            behavior: SnackBarBehavior.floating,
+            action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
+          ),
+        );
+
+        if (kDebugMode) {
+          print('Error searching for hotels: $error');
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +91,24 @@ class HomeAppBar extends StatelessWidget {
                     )
                   ],
                 ),
-                kVSpace8,
-                 Positioned(
+
                   bottom: 0,
                   right: 0,
                   left: 0,
                   child: Stack(
+                    
                     children: [
-                      const TextFieldWidget(
-                        borderRadius: 50,
-                        prefixIcon: Icons.search,
-                        hintText: "Where do you want to stay?",
-                      ),
-                      // kVSpace4,,.
+// <<<<<<< HomeScreen
+//                       const TextFieldWidget(
+// =======
+//                       TextFieldWidget(
+//                         textController: _searchController,
+// >>>>>>> main
+//                         borderRadius: 50,
+//                         prefixIcon: Icons.search,
+//                         hintText: "Where do you want to stay?",
+//                       ),
+                        
                       Positioned(
                         top: 36,
                         bottom: 8,
@@ -67,10 +118,14 @@ class HomeAppBar extends StatelessWidget {
                           height: 10,
                           width: 90,
                           fontSize: 14,
-                          onPressed: () {
+// <<<<<<< HomeScreen
+//                           onPressed: () {
                             
-                          },
-                        ),
+//                           },
+// =======
+//                           onPressed: _handleSearch, 
+// >>>>>>> main
+//                         ),
                       ),
                     ],
                   ),

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'app/Core/bloc/authentication/bloc/authentication_bloc.dart';
-import 'app/Core/utilities/constants/colors.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
 
           splashTransition: SplashTransition.slideTransition,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
-          backgroundColor: secondary,
+          backgroundColor: Colors.white,
         ),
         debugShowCheckedModeBanner: false,
       ),
