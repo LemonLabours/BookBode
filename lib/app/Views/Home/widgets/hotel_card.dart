@@ -1,3 +1,4 @@
+import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:flutter/material.dart';
 import '../../../Models/hotel_model.dart';
 import '../../Hotel Details/hotel_detail_view.dart';
@@ -20,6 +21,7 @@ class HotelCard extends StatelessWidget {
         );
       },
       child: Container(
+        height: 400,
         width: 200.0,
         padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3.0),
         child: Card(
@@ -31,7 +33,7 @@ class HotelCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: .65,
+                aspectRatio: .85,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10.0),
@@ -54,21 +56,31 @@ class HotelCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 5.0),
+                    kVSpace4,
                     if (hotel.location != null)
                       Text(
                         hotel.location!,
-                        style: const TextStyle(fontSize: 10.0),
+                        style: const TextStyle(fontSize: 12.0),
                       ),
-                    const SizedBox(height: 5.0),
-                    Text(
-                      'Rating: ${hotel.rating ?? 'N/A'}',
-                      style: const TextStyle(fontSize: 10.0),
-                    ),
-                    const SizedBox(height: 5.0),
-                    Text(
-                      '\$${hotel.price}/Night',
-                      style: const TextStyle(fontSize: 10.0),
+                    kVSpace16,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '\$${hotel.price}/Night',
+                          style: const TextStyle(fontSize: 12.0),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.star,
+                          color: Color.fromARGB(255, 213, 195, 29),
+                          size: 15,
+                        ),
+                        Text(
+                          'Rating: ${hotel.rating ?? 'N/A'}',
+                          style: const TextStyle(fontSize: 12.0),
+                        ),
+                      ],
                     ),
                   ],
                 ),

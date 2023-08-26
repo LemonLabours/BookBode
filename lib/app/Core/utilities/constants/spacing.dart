@@ -13,3 +13,17 @@ const kHSpace16 = SizedBox(width: 16);
 const kHSpace32 = SizedBox(width: 32);
 const kHSpace64 = SizedBox(width: 64);
 const kHSpace128 = SizedBox(width: 128);
+
+extension ScreenSize on BuildContext{
+  getWidth()
+  {
+    return MediaQuery.of(this).size.width;
+
+  }
+
+  getHeight()
+  {
+    return MediaQuery.of(this).size.height;
+
+  }
+}

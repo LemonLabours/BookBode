@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../Models/hotel_model.dart';
@@ -33,4 +34,3 @@ class Facilities extends StatelessWidget {
     );
   }
 }
-

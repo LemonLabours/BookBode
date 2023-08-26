@@ -1,19 +1,13 @@
 import 'package:bookbode/app/Core/utilities/constants/colors.dart';
-import 'package:bookbode/app/Views/Home/widgets/cities_list.dart';
 import 'package:flutter/material.dart';
 
-class CitiesWidget extends StatefulWidget {
-  const CitiesWidget({super.key});
+class FavoritePlae extends StatelessWidget {
+  const FavoritePlae({super.key});
 
-  @override
-  State<CitiesWidget> createState() => _CitiesWidgetState();
-}
-
-class _CitiesWidgetState extends State<CitiesWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(right: 24, left: 24, top: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -21,7 +15,7 @@ class _CitiesWidgetState extends State<CitiesWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "Populer cities",
+                "Favorite place to holiday",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -39,7 +33,6 @@ class _CitiesWidgetState extends State<CitiesWidget> {
               ),
             ],
           ),
-          const CitiesList(),
         ],
       ),
     );

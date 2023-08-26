@@ -46,13 +46,13 @@ class HomeAppBar extends StatelessWidget {
                   ],
                 ),
                 kVSpace8,
-                const Positioned(
+                 Positioned(
                   bottom: 0,
                   right: 0,
                   left: 0,
                   child: Stack(
                     children: [
-                      TextFieldWidget(
+                      const TextFieldWidget(
                         borderRadius: 50,
                         prefixIcon: Icons.search,
                         hintText: "Where do you want to stay?",
@@ -65,8 +65,11 @@ class HomeAppBar extends StatelessWidget {
                         child: FillButtons(
                           text: "Search",
                           height: 10,
-                          width: 120,
+                          width: 90,
                           fontSize: 14,
+                          onPressed: () {
+                            
+                          },
                         ),
                       ),
                     ],
