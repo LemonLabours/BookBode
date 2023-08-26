@@ -1,4 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:bookbode/app/Core/bloc/booking_bloc/booking_bloc.dart';
+import 'package:bookbode/app/Core/utilities/shared/nav_bar_view.dart';
+import 'package:bookbode/app/Views/Booking/booking_view.dart';
+import 'package:bookbode/app/Views/Home/home_view.dart';
 import 'package:bookbode/app/Views/Home/widgets/home_app_bar.dart';
 import 'package:bookbode/app/Views/Intro/intro_view.dart';
 import 'package:bookbode/app/Views/Review/review_view.dart';
@@ -28,16 +32,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => AuthenticationBloc(),
+        ),
+        BlocProvider<BookingBloc>(
+          create: (context) => BookingBloc(),
+        ),
+      ],
       child: MaterialApp(
         theme: ThemeData(),
         home: AnimatedSplashScreen(
           duration: 4000,
           splash: Image.asset('assets/imgs/BBLogo.png'),
           splashIconSize: 200.0,
-          //nextScreen: const IntroView(),
-          nextScreen: const ReviewView(),
+          // nextScreen: const IntroView(),
+          nextScreen: const NavBarView(),
           splashTransition: SplashTransition.slideTransition,
           pageTransitionType: PageTransitionType.rightToLeftWithFade,
           backgroundColor: Colors.white,

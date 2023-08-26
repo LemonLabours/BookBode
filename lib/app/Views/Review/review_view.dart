@@ -1,10 +1,8 @@
-import 'package:bookbode/app/Core/utilities/constants/nav_extension.dart';
 import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:bookbode/app/Core/utilities/shared/fill_buttons.dart';
 import 'package:flutter/material.dart';
 import '../../Core/services/Database/database.dart';
 import '../../Models/review_model.dart';
-
 
 class ReviewView extends StatefulWidget {
   const ReviewView({Key? key}) : super(key: key);
@@ -23,7 +21,7 @@ class _ReviewViewState extends State<ReviewView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Write a Review')),
+      appBar: AppBar(title: const  Text('Write a Review')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -60,19 +58,7 @@ class _ReviewViewState extends State<ReviewView> {
               ).toList(),
             ),
             FillButtons(
-              onPressed:() async {
-                  final id = const Uuid().v4();
-                  await DatabaseService().insertCourse(
-                    Review(
-                      username: _nameController.text,
-                      comment: _commentController.text, 
-                      userId: id, reviewId: '', createdAt: createdAt,
-                    ),
-                  );
-                  if (context.mounted) {
-                    context.pop();
-                  }
-                }
+              onPressed: _submitReview,
                text:'Submit Review',
             ),
           ],

@@ -129,17 +129,6 @@ class HotelDetailsContent extends StatelessWidget {
           Facilities(facilities: hotel.facilities),
           kVSpace16,
           ReviewSection(isLoading: isLoading, reviews: reviews),
-          // FillButtons(
-          //   width: 150,
-          //   height: 40,
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => const ReviewView()),
-          //     );
-          //   },
-          //   text: 'Add Review',
-          // ),
           kVSpace32,
           BookingButtons(hotel: hotel),
         ],
