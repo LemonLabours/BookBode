@@ -22,7 +22,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<CheckCouponEvent>(_handleCheckCouponEvent);
     on<ConfirmBookingEvent>(_handleConfirmBookingEvent);
     on<UpdateBookingDetails>(_handleUpdateBookingDetails);
-    on<DatePicked>(_handleDatePicked); // Added this line
+    on<DatePicked>(_handleDatePicked);
   }
 
   void _handleCheckCouponEvent(
@@ -30,7 +30,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     try {
       Coupon? coupon = await _dbService.getCouponByCode(event.couponCode);
       if (coupon != null) {
-        totalPrice -= coupon.discountAmount ?? 0;
+        totalPrice -= coupon.discountAmount ?? 60;
         emit(CouponValid(coupon));
       } else {
         emit(CouponInvalid());

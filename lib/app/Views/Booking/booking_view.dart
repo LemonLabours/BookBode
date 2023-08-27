@@ -23,9 +23,7 @@ class BookingView extends StatelessWidget {
       listener: (context, state) {
         if (state is BookingSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-
             const SnackBar(content: Text("Booking Successful!")),
-
           );
         } else if (state is BookingError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -43,11 +41,10 @@ class BookingView extends StatelessWidget {
               backgroundColor: hWhiteColor,
               elevation: 0,
               title: Text(
-                "Booking for ${hotel.name}",
+                "Booking ${hotel.name}",
                 style: const TextStyle(color: hBlachColor),
               )),
           body: Padding(
-
             padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,8 +70,7 @@ class BookingView extends StatelessWidget {
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(picked);
                           bloc.dateController.text = formattedDate;
-                          bloc.add(DatePicked(
-                              formattedDate)); 
+                          bloc.add(DatePicked(formattedDate));
                         }
                       },
                       child: Text(bloc.dateController.text.isEmpty
@@ -143,7 +139,6 @@ class BookingView extends StatelessWidget {
                 ),
                 const Spacer(),
                 FillButtons(
-
                   onPressed: () {
                     var uuid = const Uuid();
                     Booking booking = Booking(
@@ -156,10 +151,7 @@ class BookingView extends StatelessWidget {
                     );
                     bloc.add(ConfirmBookingEvent(booking));
                   },
-
                   text: "Confirm Booking",
-
-
                 ),
               ],
             ),

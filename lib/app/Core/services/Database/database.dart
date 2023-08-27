@@ -83,25 +83,26 @@ class DatabaseService {
   }
 
   Future<Coupon?> getCouponByCode(String couponCode) async {
-    final response = await supabase
-        .from('coupons')
-        .select('*')
-        .eq('code', couponCode)
-        .single();
+    final response =
+        await supabase.from('coupons').select('*').eq('code', couponCode);
 
-    if (response is Map && response.containsKey('error')) {
-      throw Exception(response['error']['message'] ?? 'An error occurred');
+    if (response.error != null) {
+      throw Exception(response.error!.message ?? 'An error occurred');
     }
 
-    if (response.data == null) {
-      return null;
+    if (response.data == null || response.data.isEmpty) {
+      return null; // No coupon found
     }
 
-    if (response.data is! Map) {
+    if (response.data.length > 1) {
+      throw Exception('Multiple coupons found with the same code.');
+    }
+
+    if (response.data[0] is! Map) {
       throw Exception('Unexpected data format.');
     }
 
-    return Coupon.fromMap(response.data);
+    return Coupon.fromMap(response.data[0]);
   }
 
   Future<List<Booking>> getBookingsForCustomer(String customerId) async {

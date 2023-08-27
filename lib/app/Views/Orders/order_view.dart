@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Core/bloc/order_bloc/order_bloc.dart';
 import '../../Core/services/Database/database.dart';
+import '../../Core/utilities/constants/colors.dart';
 import 'widgets/booking_card.dart';
 import '../../../../main.dart';
 
@@ -41,7 +42,15 @@ class _OrderViewState extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Bookings")),
+      backgroundColor: hWhiteColor,
+      appBar: AppBar(
+        title: const Text("My Bookings"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: babyAndDarkBlueGradient,
+          ),
+        ),
+      ),
       body: BlocBuilder<OrderBloc, OrderState>(
         builder: (context, state) {
           if (state is OrderLoading) {

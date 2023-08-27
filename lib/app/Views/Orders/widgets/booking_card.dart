@@ -1,3 +1,4 @@
+import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:flutter/material.dart';
 import '../../../Core/services/Database/database.dart';
 import '../../../Models/booking_model.dart';
@@ -15,7 +16,7 @@ class BookingCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Card(
-        elevation: 2,
+        elevation: 0, // Remove elevation
         child: FutureBuilder<Hotel>(
           future: databaseService.getHotelById(booking.hotelId!),
           builder: (context, snapshot) {
@@ -27,20 +28,37 @@ class BookingCard extends StatelessWidget {
               return const Center(child: Text('No hotel found.'));
             } else {
               final hotel = snapshot.data!;
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(hotel.hotelImage),
-                  backgroundColor: Colors.transparent,
-                  radius: 30,
-                ),
-                title: Text('Hotel: ${hotel.name}'),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              return SizedBox(
+                height: 360, // same height as the image
+                child: Row(
                   children: [
-                    Text('Booking ID: ${booking.bookingId}'),
-                    Text('Check-In: ${booking.checkInDate}'),
-                    Text('Booked On: ${booking.createdAt.toString()}'),
-                    Text('Total: \$${booking.totalPrice.toString()}'),
+                    Container(
+                      width: 200,
+                      height: 360,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(hotel.hotelImage),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ResponsiveSpacing.height(context, small),
+                          Text('Hotel: ${hotel.name}',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
+                          ResponsiveSpacing.height(context, small),
+                          Text('Check-In: ${booking.checkInDate}'),
+                          ResponsiveSpacing.height(context, small),
+                          Text('Total: \$${booking.totalPrice.toString()}'),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               );

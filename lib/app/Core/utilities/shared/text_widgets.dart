@@ -39,7 +39,7 @@ class ParagraphText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width * 0.06;
+    double fontSize = MediaQuery.of(context).size.width * 0.04;
 
     return Text(
       text,
@@ -118,7 +118,7 @@ class ButtonText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width * 0.05;
+    double fontSize = MediaQuery.of(context).size.width * 0.04;
 
     return Text(
       text,
