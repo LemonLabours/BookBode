@@ -6,7 +6,11 @@ class ReviewSection extends StatelessWidget {
   final List<Review>? reviews;
   final bool isLoading;
 
-  const ReviewSection({super.key, required this.reviews, required this.isLoading});
+  const ReviewSection({
+    super.key,
+    required this.reviews,
+    required this.isLoading,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +22,38 @@ class ReviewSection extends StatelessWidget {
       return const Text("No reviews available.");
     }
 
-    return Column(
-      children: reviews!
-          .map((review) => ListTile(
-                title: Text(review.comment ?? "No comment"),
-                subtitle: Text("Rating: ${review.userRating ?? 'N/A'}"),
-              ))
-          .toList(),
+    return ListView.builder(
+      shrinkWrap:
+          true, // To prevent unbounded height in the ListView inside Column
+      physics:
+          NeverScrollableScrollPhysics(), // To prevent independent scrolling inside the ListView
+      itemCount: reviews!.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(reviews![index].userName ?? "Anonymous"),
+                  Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.yellow), // Star Icon
+                      SizedBox(
+                          width: 5), // Spacing between star icon and rating
+                      Text('${reviews![index].userRating ?? 'N/A'}'),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(reviews![index].comment ?? "No comment"),
+            ],
+          ),
+        );
+      },
     );
   }
 }
-

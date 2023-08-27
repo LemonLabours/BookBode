@@ -1,5 +1,3 @@
-import 'package:bookbode/app/Core/utilities/constants/colors.dart';
-import 'package:bookbode/app/Core/utilities/constants/nav_extension.dart';
 import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

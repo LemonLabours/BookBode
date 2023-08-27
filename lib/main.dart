@@ -1,9 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bookbode/app/Core/bloc/booking_bloc/booking_bloc.dart';
-<<<<<<< HEAD
-import 'package:bookbode/app/Core/utilities/shared/nav_bar_view.dart';
-=======
->>>>>>> 6caab5c012db40bf97cfbf9cffd70662d23ef484
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -11,8 +7,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'app/Core/bloc/authentication_bloc/authentication_bloc.dart';
 import 'app/Core/bloc/order_bloc/order_bloc.dart';
 import 'app/Views/Intro/intro_view.dart';
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +35,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<BookingBloc>(
           create: (context) => BookingBloc(),
         ),
-             BlocProvider<OrderBloc>(
+        BlocProvider<OrderBloc>(
           create: (context) => OrderBloc(),
         ),
       ],
