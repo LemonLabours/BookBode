@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Core/bloc/order_bloc/order_bloc.dart';
@@ -27,7 +29,7 @@ class _OrderViewState extends State<OrderView> {
     try {
       await DatabaseService().deleteBooking(bookingId);
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Booking deleted successfully.')));
+          const SnackBar(content: Text('Booking deleted successfully.')));
       // Trigger another load to refresh the list of bookings
       context.read<OrderBloc>().add(LoadBookings(userId!));
     } catch (e) {

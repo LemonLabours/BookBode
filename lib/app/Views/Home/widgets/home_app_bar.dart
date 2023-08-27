@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bookbode/app/Core/utilities/constants/colors.dart';
 import 'package:bookbode/app/Core/utilities/constants/spacing.dart';
 import 'package:bookbode/app/Models/hotel_model.dart';

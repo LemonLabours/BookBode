@@ -13,10 +13,6 @@ class BookingButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: hWhiteColor,
-
-      //elevation: 30,
-      height: 120,
-
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

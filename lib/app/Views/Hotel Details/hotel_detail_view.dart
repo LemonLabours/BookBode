@@ -50,7 +50,6 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
       body: Stack(
         children: [
           HotelImage(imageUrl: widget.hotel.hotelImage),
-         
           const GradientOverlay(),
           BottomContainer(
             child: HotelDetailsContent(
@@ -127,9 +126,8 @@ class HotelDetailsContent extends StatelessWidget {
           Description(title: 'Description', description: hotel.description),
           kVSpace32,
           Facilities(facilities: hotel.facilities),
-          kVSpace16,
-          ReviewSection(isLoading: isLoading, reviews: reviews),
           kVSpace32,
+          ReviewSection(isLoading: isLoading, reviews: reviews),
           BookingButtons(hotel: hotel),
         ],
       ),
